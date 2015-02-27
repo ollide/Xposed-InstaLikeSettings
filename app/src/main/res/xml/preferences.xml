@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/prefCatTitle">
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/prefDoubleTapDialogTitle"
+            android:entries="@array/likeInterceptionModes"
+            android:entryValues="@array/likeInterceptionModeValues"
+            android:key="doubleTapPreference"
+            android:summary="@string/prefDoubleTapInfo"
+            android:title="@string/prefDoubleTapTitle" />
+
+        <ListPreference
+            android:defaultValue="2"
+            android:dialogTitle="@string/prefHeartIconDialogTitle"
+            android:entries="@array/heartIconModes"
+            android:entryValues="@array/heartIconModeValues"
+            android:key="likeIconPreference"
+            android:summary="@string/prefHeartIconInfo"
+            android:title="@string/prefHeartIconTitle" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

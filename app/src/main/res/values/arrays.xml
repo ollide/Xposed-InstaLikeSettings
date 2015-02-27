@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="likeInterceptionModes">
+        <item>Show like dialog</item>
+        <item>None</item>
+        <item>Like (Instagram default)</item>
+    </string-array>
+    <string-array name="likeInterceptionModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="heartIconModes">
+        <item>Show like dialog</item>
+        <item>None</item>
+        <item>Like (Instagram default)</item>
+    </string-array>
+    <string-array name="heartIconModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

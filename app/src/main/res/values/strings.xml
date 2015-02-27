@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Insta Like Settings</string>
+
+    <string name="prefCatTitle">Like Interaction Settings</string>
+
+    <string name="prefDoubleTapTitle">Double-Tap Interaction</string>
+    <string name="prefDoubleTapDialogTitle">Double-Tap Interaction</string>
+    <string name="prefDoubleTapInfo">Intercept Double-Tap-to-Like</string>
+
+    <string name="prefHeartIconTitle">Heart Icon Interaction</string>
+    <string name="prefHeartIconDialogTitle">Heart Icon Interaction</string>
+    <string name="prefHeartIconInfo">Intercept heart icon clicks</string>
+
+    <string name="xposeddescription">Control how you like photos on Instagram.</string>
+
+</resources>
