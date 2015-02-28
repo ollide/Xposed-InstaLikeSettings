@@ -70,6 +70,7 @@ public class MethodHooks implements IXposedHookLoadPackage {
         findAndHookMethod(ClassNames.getDoubleTapListenerName(), classLoader, "onDoubleTap", MotionEvent.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
+                refreshPreferences();
 
                 if (mDtMode == Prefs.MODE_NONE) {
                     return true;
@@ -88,6 +89,7 @@ public class MethodHooks implements IXposedHookLoadPackage {
         findAndHookMethod(ClassNames.getHeartIconTapListenerName(), classLoader, "onClick", View.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                refreshPreferences();
 
                 if (mHiMode == Prefs.MODE_NONE) {
                     return null;
