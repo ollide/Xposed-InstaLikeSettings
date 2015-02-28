@@ -26,7 +26,6 @@ public class MethodHooks implements IXposedHookLoadPackage {
     public static final String MY_PACKAGE_NAME = "org.ollide.xposed.instagram";
 
     private static Context mContext;
-    private static int mVersionCode = 0;
 
     private static int mDtMode = Prefs.MODE_DIALOG;
     private static int mHiMode = Prefs.MODE_LIKE;
@@ -47,13 +46,15 @@ public class MethodHooks implements IXposedHookLoadPackage {
         try {
             Class c = Class.forName("android.content.pm.ApplicationInfo");
             Field versionCodeField = c.getField("versionCode");
-            mVersionCode = (int) versionCodeField.get(info);
+            int versionCode = (int) versionCodeField.get(info);
+            // initialize obfuscated class names
+            ClassNames.initWithVersion(versionCode);
         } catch (Exception e) {
             // hidden API use may fail
         }
 
         // hook BaseActivity's onCreate to gain access on a valid Context object
-        findAndHookMethod(ClassNames.getBaseActivityName(mVersionCode), loadPackageParam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
+        findAndHookMethod(ClassNames.getBaseActivityName(), loadPackageParam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 mContext = (Context) param.thisObject;
@@ -66,7 +67,7 @@ public class MethodHooks implements IXposedHookLoadPackage {
 
     private void hookDoubleTap(ClassLoader classLoader) {
         // replace image's onDoubleTap
-        findAndHookMethod(ClassNames.getDoubleTapListenerName(mVersionCode), classLoader, "onDoubleTap", MotionEvent.class, new XC_MethodReplacement() {
+        findAndHookMethod(ClassNames.getDoubleTapListenerName(), classLoader, "onDoubleTap", MotionEvent.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
 
@@ -84,7 +85,7 @@ public class MethodHooks implements IXposedHookLoadPackage {
 
     private void hookHeartIcon(ClassLoader classLoader) {
         // replace the heart icon's onClick
-        findAndHookMethod(ClassNames.getHeartIconTapListenerName(mVersionCode), classLoader, "onClick", View.class, new XC_MethodReplacement() {
+        findAndHookMethod(ClassNames.getHeartIconTapListenerName(), classLoader, "onClick", View.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
 
