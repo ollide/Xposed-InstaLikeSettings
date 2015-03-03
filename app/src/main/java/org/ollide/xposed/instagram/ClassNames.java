@@ -7,8 +7,9 @@ public final class ClassNames {
     private static final int VERSION_6_10_1 = 5257472;
     private static final int VERSION_6_15_0 = 6891295;
     private static final int VERSION_6_16_0_BETA = 7097676;
-    // last reviewed version
     private static final int VERSION_6_16_1 = 7369808;
+    // last reviewed version
+    private static final int VERSION_6_17_0 = 7483428;
 
     /**
      * The BaseActivity's obfuscated class name.
@@ -17,16 +18,19 @@ public final class ClassNames {
     private static String sBaseActivityName = "com.instagram.base.activity.e";
 
     /**
-     * Last changed with version 6.16.0_Beta, first checked with version 6.10.1.
+     * Last changed with version 6.17.0, first checked with version 6.10.1.
      */
-    private static String sDoubleTabListenerName = "com.instagram.android.feed.a.b.ac";
+    private static String sDoubleTabListenerName = "com.instagram.android.feed.a.b.ao";
     /**
-     * Last changed with version 6.16.0_Beta, first checked with version 6.10.1.
+     * Last changed with version 6.17.0, first checked with version 6.10.1.
      */
-    private static String sHeartIconTapListenerName = "com.instagram.android.feed.a.b.o";
+    private static String sHeartIconTapListenerName = "com.instagram.android.feed.a.b.aa";
 
     public static void initWithVersion(int versionCode) {
-        if (versionCode >= VERSION_6_16_0_BETA) {
+        if (versionCode >= VERSION_6_17_0) {
+            sDoubleTabListenerName = "com.instagram.android.feed.a.b.ao";
+            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.aa";
+        } else if (versionCode >= VERSION_6_16_0_BETA) {
             sDoubleTabListenerName = "com.instagram.android.feed.a.b.ac";
             sHeartIconTapListenerName = "com.instagram.android.feed.a.b.o";
         } else {
