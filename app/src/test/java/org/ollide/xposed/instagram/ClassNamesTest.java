@@ -10,6 +10,7 @@ public class ClassNamesTest {
     private static final int VERSION_6_16_0 = 7274492;
     private static final int VERSION_6_16_1 = 7369808;
     private static final int VERSION_6_18_0 = 8031086;
+    private static final int VERSION_6_19_0 = 8582325;
 
     private static final int VERSION_PAST_UNKNOWN = 100;
 
@@ -26,8 +27,11 @@ public class ClassNamesTest {
 
     @Test
     public void getDoubleTapListenerNameTest() {
+        ClassNames.initWithVersion(VERSION_6_19_0);
+        Assert.assertEquals("com.instagram.android.feed.a.b.aw", ClassNames.getDoubleTapListenerName());
+
         ClassNames.initWithVersion(VERSION_6_18_0);
-        Assert.assertEquals("com.instagram.android.feed.a.b.at", ClassNames.getDoubleTapListenerName());    ClassNames.initWithVersion(VERSION_6_16_1);
+        Assert.assertEquals("com.instagram.android.feed.a.b.at", ClassNames.getDoubleTapListenerName());
 
         ClassNames.initWithVersion(VERSION_6_16_1);
         Assert.assertEquals("com.instagram.android.feed.a.b.ac", ClassNames.getDoubleTapListenerName());
@@ -44,6 +48,9 @@ public class ClassNamesTest {
 
     @Test
     public void getHeartIconTapListenerNameTest() {
+        ClassNames.initWithVersion(VERSION_6_19_0);
+        Assert.assertEquals("com.instagram.android.feed.a.b.ah", ClassNames.getHeartIconTapListenerName());
+
         ClassNames.initWithVersion(VERSION_6_18_0);
         Assert.assertEquals("com.instagram.android.feed.a.b.af", ClassNames.getHeartIconTapListenerName());
 
