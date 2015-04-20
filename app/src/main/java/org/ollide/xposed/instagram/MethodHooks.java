@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
-import android.os.Bundle;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,8 +52,8 @@ public class MethodHooks implements IXposedHookLoadPackage {
             // hidden API use may fail
         }
 
-        // hook BaseActivity's onCreate to gain access on a valid Context object
-        findAndHookMethod(ClassNames.getBaseActivityName(), loadPackageParam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
+        // hook BaseActivity's onResume to gain access on a valid Context object
+        findAndHookMethod(ClassNames.getBaseActivityName(), loadPackageParam.classLoader, "onResume", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 mContext = (Context) param.thisObject;
