@@ -20,6 +20,9 @@ The module is available on the [Xposed repo](http://repo.xposed.info/module/org.
 Visit the [XDA thread](http://forum.xda-developers.com/xposed/modules/mod-instagram-settings-t3041914).
 
 ## Changelog ##
+**1.2**
+supports 6.19.0, 6.20.0 & bugfixes
+
 **1.1.2**
 added 6.18.0 support
 
