@@ -1,65 +1,118 @@
 package org.ollide.xposed.instagram;
 
+import java.util.Arrays;
+
 public final class ClassNames {
 
     public static final String TARGET_PACKAGE = "com.instagram.android";
 
-    private static final int VERSION_6_10_1 = 5257472;
-    private static final int VERSION_6_15_0 = 6891295;
-    private static final int VERSION_6_16_0_BETA = 7097676;
-    private static final int VERSION_6_16_1 = 7369808;
-    private static final int VERSION_6_17_0 = 7483428;
-    private static final int VERSION_6_18_0 = 8031086;
-    private static final int VERSION_6_19_0 = 8582325;
-    // last reviewed version
-    private static final int VERSION_6_20_0 = 9204850;
+    private static MinSdk appMinSdk = MinSdk.UNKNOWN;
+
+    // minSdk9 codes
+    private static final int V9_6_16_0 = 7097676;
+
+    private static final int V9_6_17_0 = 7483428; // Mar 3 '15
+
+    private static final int V9_6_18_0 = 8031086; // Mar 17 '15
+    private static final int V9_6_18_0_2 = 8317903; // Mar 24 '15
+
+    private static final int V9_6_19_0 = 8582325; // Apr 1 '15
+    private static final int V9_6_19_0_2 = 8886221; // Apr 8 '15
+    private static final int V9_6_19_0_3 = 9350372; // Apr 20 '15
+
+    private static final Integer[] V9_CODES = {V9_6_16_0, V9_6_17_0, V9_6_18_0, V9_6_18_0_2,
+            V9_6_19_0, V9_6_19_0_2, V9_6_19_0_3};
+
+    // minSdk14 codes
+    private static final int V14_6_20_0 = 9204850; // Apr 17 '15
+    private static final int V14_6_20_1 = 9409530; // Apr 23 '15
+
+    private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1};
 
     /**
-     * The BaseActivity's obfuscated class name.
-     * Has never changed so far (since 6.10.1 | 5257472).
+     * Last changed with version 6.19.0 (8582325) last checked with 9350372
      */
-    private static String sBaseActivityName = "com.instagram.base.activity.e";
+    private static String v9DoubleTabListenerName = "com.instagram.android.feed.a.b.aw";
+    /**
+     * Last changed with version 6.19.0 (8582325) last checked with 9350372
+     */
+    private static String v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
     /**
-     * Last changed with version 6.20.0, first checked with version 6.10.1.
+     * Last changed with version 6.20.0 (9204850) last checked with 9409530
      */
-    private static String sDoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
+    private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
     /**
-     * Last changed with version 6.19.0, first checked with version 6.10.1.
+     * Last changed with version 6.20.0 (9204850) last checked with 9409530
      */
-    private static String sHeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
+    private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
     public static void initWithVersion(int versionCode) {
-        if (versionCode >= VERSION_6_20_0) {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
-        } else if (versionCode >= VERSION_6_19_0) {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.aw";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
-        } else if (versionCode >= VERSION_6_18_0) {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.at";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.af";
-        } else if (versionCode >= VERSION_6_17_0) {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.ao";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.aa";
-        } else if (versionCode >= VERSION_6_16_0_BETA) {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.ac";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.o";
+        // minSdk9 class names
+        if (versionCode >= V9_6_19_0) {
+            v9DoubleTabListenerName = "com.instagram.android.feed.a.b.aw";
+            v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
+        } else if (versionCode >= V9_6_18_0) {
+            v9DoubleTabListenerName = "com.instagram.android.feed.a.b.at";
+            v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.af";
+        } else if (versionCode >= V9_6_17_0) {
+            v9DoubleTabListenerName = "com.instagram.android.feed.a.b.ao";
+            v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.aa";
+        } else if (versionCode >= V9_6_16_0) {
+            v9DoubleTabListenerName = "com.instagram.android.feed.a.b.ac";
+            v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.o";
         } else {
-            sDoubleTabListenerName = "com.instagram.android.feed.a.b.z";
-            sHeartIconTapListenerName = "com.instagram.android.feed.a.b.b";
+            v9DoubleTabListenerName = "com.instagram.android.feed.a.b.z";
+            v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.b";
+        }
+
+        // minSdk14 class names
+        if (versionCode >= V14_6_20_0) {
+            v14DoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
+            v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
+        }
+
+        // check exact version match
+        if (Arrays.asList(V9_CODES).contains(versionCode)) {
+            appMinSdk = MinSdk.V9;
+        } else if (Arrays.asList(V14_CODES).contains(versionCode)) {
+            appMinSdk = MinSdk.V14;
+        } else {
+            appMinSdk = MinSdk.UNKNOWN;
         }
     }
 
     public static String getBaseActivityName() {
-        return sBaseActivityName;
+        return "com.instagram.base.activity.e";
     }
 
-    public static String getDoubleTapListenerName() {
-        return sDoubleTabListenerName;
+    public static String getAppClassName() {
+        return "com.instagram.app.InstagramAppShell";
     }
 
-    public static String getHeartIconTapListenerName() {
-        return sHeartIconTapListenerName;
+    public static String[] getDoubleTapListenerCandidates() {
+        switch (appMinSdk) {
+            case V9:
+                return new String[]{v9DoubleTabListenerName};
+            case V14:
+                return new String[]{v14DoubleTabListenerName};
+            default:
+                return new String[]{v9DoubleTabListenerName, v14DoubleTabListenerName};
+        }
+    }
+
+    public static String[] getHeartIconTapListenerCandidates() {
+        switch (appMinSdk) {
+            case V9:
+                return new String[]{v9HeartIconTapListenerName};
+            case V14:
+                return new String[]{v14HeartIconTapListenerName};
+            default:
+                return new String[]{v9HeartIconTapListenerName, v14HeartIconTapListenerName};
+        }
+    }
+
+    enum MinSdk {
+        UNKNOWN, V9, V14
     }
 }

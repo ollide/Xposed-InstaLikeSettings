@@ -3,19 +3,19 @@ package org.ollide.xposed.instagram;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -30,7 +30,7 @@ public class MethodHooks implements IXposedHookLoadPackage {
     private static int mHiMode = Prefs.MODE_LIKE;
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
+    public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         if (!loadPackageParam.packageName.equals(ClassNames.TARGET_PACKAGE)) {
             return;
         }
@@ -40,18 +40,6 @@ public class MethodHooks implements IXposedHookLoadPackage {
         // load module preferences
         refreshPreferences();
 
-        // retrieve app's versionCode via reflection
-        ApplicationInfo info = loadPackageParam.appInfo;
-        try {
-            Class c = Class.forName("android.content.pm.ApplicationInfo");
-            Field versionCodeField = c.getField("versionCode");
-            int versionCode = (int) versionCodeField.get(info);
-            // initialize obfuscated class names
-            ClassNames.initWithVersion(versionCode);
-        } catch (Exception e) {
-            // hidden API use may fail
-        }
-
         // hook BaseActivity's onResume to gain access on a valid Context object
         findAndHookMethod(ClassNames.getBaseActivityName(), loadPackageParam.classLoader, "onResume", new XC_MethodHook() {
             @Override
@@ -60,46 +48,81 @@ public class MethodHooks implements IXposedHookLoadPackage {
             }
         });
 
-        hookDoubleTap(loadPackageParam.classLoader);
-        hookHeartIcon(loadPackageParam.classLoader);
+        // hook application start to init version code without reflection
+        findAndHookMethod(ClassNames.getAppClassName(), loadPackageParam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                Context context = (Context) param.thisObject;
+                PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                // initialize obfuscated class names
+                ClassNames.initWithVersion(packageInfo.versionCode);
+
+                hookDoubleTap(loadPackageParam.classLoader);
+                hookHeartIcon(loadPackageParam.classLoader);
+            }
+        });
     }
 
     private void hookDoubleTap(ClassLoader classLoader) {
-        // replace image's onDoubleTap
-        findAndHookMethod(ClassNames.getDoubleTapListenerName(), classLoader, "onDoubleTap", MotionEvent.class, new XC_MethodReplacement() {
-            @Override
-            protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
-                refreshPreferences();
-
-                if (mDtMode == Prefs.MODE_NONE) {
-                    return true;
-                } else if (mDtMode == Prefs.MODE_LIKE) {
-                    return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
-                } else {
-                    showLikeDialog(param);
-                    return true;
-                }
+        for (String candidate : ClassNames.getDoubleTapListenerCandidates()) {
+            if (hookDoubleTap(classLoader, candidate)) {
+                break;
             }
-        });
+        }
+    }
+
+    private boolean hookDoubleTap(ClassLoader classLoader, String className) {
+        try {
+            findAndHookMethod(className, classLoader, "onDoubleTap", MotionEvent.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
+                    refreshPreferences();
+
+                    if (mDtMode == Prefs.MODE_NONE) {
+                        return true;
+                    } else if (mDtMode == Prefs.MODE_LIKE) {
+                        return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+                    } else {
+                        showLikeDialog(param);
+                        return true;
+                    }
+                }
+            });
+            return true;
+        } catch (XposedHelpers.ClassNotFoundError | NoSuchMethodError error) {
+            return false;
+        }
     }
 
     private void hookHeartIcon(ClassLoader classLoader) {
-        // replace the heart icon's onClick
-        findAndHookMethod(ClassNames.getHeartIconTapListenerName(), classLoader, "onClick", View.class, new XC_MethodReplacement() {
-            @Override
-            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                refreshPreferences();
-
-                if (mHiMode == Prefs.MODE_NONE) {
-                    return null;
-                } else if (mHiMode == Prefs.MODE_LIKE) {
-                    return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
-                } else {
-                    showLikeDialog(param);
-                    return null;
-                }
+        for (String candidate : ClassNames.getHeartIconTapListenerCandidates()) {
+            if (hookHeartIcon(classLoader, candidate)) {
+                break;
             }
-        });
+        }
+    }
+
+    private boolean hookHeartIcon(ClassLoader classLoader, String className) {
+        try {
+            findAndHookMethod(className, classLoader, "onClick", View.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    refreshPreferences();
+
+                    if (mHiMode == Prefs.MODE_NONE) {
+                        return null;
+                    } else if (mHiMode == Prefs.MODE_LIKE) {
+                        return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+                    } else {
+                        showLikeDialog(param);
+                        return null;
+                    }
+                }
+            });
+            return true;
+        } catch (XposedHelpers.ClassNotFoundError | NoSuchMethodError error) {
+            return false;
+        }
     }
 
     private void showLikeDialog(final XC_MethodHook.MethodHookParam param) {
