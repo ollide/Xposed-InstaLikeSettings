@@ -9,6 +9,9 @@ public final class ClassNames {
     private static MinSdk appMinSdk = MinSdk.UNKNOWN;
 
     // minSdk9 codes
+    private static final int V9_6_10_1 = 5257472; // Nov 5 '14
+    private static final int V9_6_15_0 = 6891295; // Feb 10 '15
+
     private static final int V9_6_16_0 = 7097676;
 
     private static final int V9_6_17_0 = 7483428; // Mar 3 '15
@@ -20,14 +23,16 @@ public final class ClassNames {
     private static final int V9_6_19_0_2 = 8886221; // Apr 8 '15
     private static final int V9_6_19_0_3 = 9350372; // Apr 20 '15
 
-    private static final Integer[] V9_CODES = {V9_6_16_0, V9_6_17_0, V9_6_18_0, V9_6_18_0_2,
+    private static final Integer[] V9_CODES = {V9_6_10_1, V9_6_15_0, V9_6_16_0, V9_6_17_0, V9_6_18_0, V9_6_18_0_2,
             V9_6_19_0, V9_6_19_0_2, V9_6_19_0_3};
 
     // minSdk14 codes
     private static final int V14_6_20_0 = 9204850; // Apr 17 '15
     private static final int V14_6_20_1 = 9409530; // Apr 23 '15
+    private static final int V14_6_20_1_2 = 9476507; // Apr 24 '15
+    private static final int V14_6_20_2 = 9494173; // Apr 25 '15
 
-    private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1};
+    private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1, V14_6_20_1_2, V14_6_20_2};
 
     /**
      * Last changed with version 6.19.0 (8582325) last checked with 9350372
@@ -39,11 +44,11 @@ public final class ClassNames {
     private static String v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
     /**
-     * Last changed with version 6.20.0 (9204850) last checked with 9409530
+     * Last changed with version 6.20.0 (9204850) last checked with 9494173
      */
     private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
     /**
-     * Last changed with version 6.20.0 (9204850) last checked with 9409530
+     * Last changed with version 6.20.0 (9204850) last checked with 9494173
      */
     private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
