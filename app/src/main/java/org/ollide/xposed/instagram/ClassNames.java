@@ -32,7 +32,14 @@ public final class ClassNames {
     private static final int V14_6_20_1_2 = 9476507; // Apr 24 '15
     private static final int V14_6_20_2 = 9494173; // Apr 25 '15
 
-    private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1, V14_6_20_1_2, V14_6_20_2};
+    private static final int V14_7_3_0 = 13211814; // Jul 21 '15
+
+    private static final int V14_7_4_0 = 13688692; // Aug 06 '15
+    private static final int V14_7_5_0 = 14047999; // Aug 18 '15
+    private static final int V14_7_5_1 = 14510518; // Sep 01 '15
+
+    private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1, V14_6_20_1_2, V14_6_20_2,
+            V14_7_3_0, V14_7_4_0, V14_7_5_0, V14_7_5_1};
 
     /**
      * Last changed with version 6.19.0 (8582325) last checked with 9350372
@@ -44,13 +51,13 @@ public final class ClassNames {
     private static String v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
     /**
-     * Last changed with version 6.20.0 (9204850) last checked with 9494173
+     * Last changed with version 7.4.0 (13688692) last checked with 14510518
      */
-    private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
+    private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.au";
     /**
-     * Last changed with version 6.20.0 (9204850) last checked with 9494173
+     * Last changed with version 7.4.0 (13688692) last checked with 14510518
      */
-    private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
+    private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.w";
 
     public static void initWithVersion(int versionCode) {
         // minSdk9 class names
@@ -72,7 +79,13 @@ public final class ClassNames {
         }
 
         // minSdk14 class names
-        if (versionCode >= V14_6_20_0) {
+        if (versionCode >= V14_7_4_0) {
+            v14DoubleTabListenerName = "com.instagram.android.feed.a.b.au";
+            v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.w";
+        } else if (versionCode >= V14_7_3_0) {
+            v14DoubleTabListenerName = "com.instagram.android.feed.a.b.at";
+            v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.w";
+        } else if (versionCode >= V14_6_20_0) {
             v14DoubleTabListenerName = "com.instagram.android.feed.a.b.bc";
             v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
         }
