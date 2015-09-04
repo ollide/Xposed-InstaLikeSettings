@@ -120,7 +120,7 @@ public final class ClassNames {
             case V14:
                 return new String[]{v14DoubleTabListenerName};
             default:
-                return new String[]{v9DoubleTabListenerName, v14DoubleTabListenerName};
+                return new String[]{v14DoubleTabListenerName, v9DoubleTabListenerName};
         }
     }
 
@@ -131,7 +131,7 @@ public final class ClassNames {
             case V14:
                 return new String[]{v14HeartIconTapListenerName};
             default:
-                return new String[]{v9HeartIconTapListenerName, v14HeartIconTapListenerName};
+                return new String[]{v14HeartIconTapListenerName, v9HeartIconTapListenerName};
         }
     }
 
