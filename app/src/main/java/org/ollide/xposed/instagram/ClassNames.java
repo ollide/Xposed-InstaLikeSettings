@@ -37,11 +37,12 @@ public final class ClassNames {
     private static final int V14_7_4_0 = 13688692; // Aug 06 '15
     private static final int V14_7_5_0 = 14047999; // Aug 18 '15
     private static final int V14_7_5_1 = 14510518; // Sep 01 '15
+    private static final int V14_7_5_2 = 14547085; // Sep 04 '15
 
     private static final int V14_7_6_0 = 14592506; // Sep 04 '15
 
     private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1, V14_6_20_1_2, V14_6_20_2,
-            V14_7_3_0, V14_7_4_0, V14_7_5_0, V14_7_5_1, V14_7_6_0};
+            V14_7_3_0, V14_7_4_0, V14_7_5_0, V14_7_5_1, V14_7_5_2, V14_7_6_0};
 
     /**
      * Last changed with version 6.19.0 (8582325) last checked with 9350372
