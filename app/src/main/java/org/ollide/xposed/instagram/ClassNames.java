@@ -38,8 +38,10 @@ public final class ClassNames {
     private static final int V14_7_5_0 = 14047999; // Aug 18 '15
     private static final int V14_7_5_1 = 14510518; // Sep 01 '15
 
+    private static final int V14_7_6_0 = 14592506; // Sep 04 '15
+
     private static final Integer[] V14_CODES = {V14_6_20_0, V14_6_20_1, V14_6_20_1_2, V14_6_20_2,
-            V14_7_3_0, V14_7_4_0, V14_7_5_0, V14_7_5_1};
+            V14_7_3_0, V14_7_4_0, V14_7_5_0, V14_7_5_1, V14_7_6_0};
 
     /**
      * Last changed with version 6.19.0 (8582325) last checked with 9350372
@@ -51,13 +53,13 @@ public final class ClassNames {
     private static String v9HeartIconTapListenerName = "com.instagram.android.feed.a.b.ai";
 
     /**
-     * Last changed with version 7.4.0 (13688692) last checked with 14510518
+     * Last changed with version 7.6.0 (14592506) last checked with 14592506
      */
-    private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.au";
+    private static String v14DoubleTabListenerName = "com.instagram.android.feed.a.b.ax";
     /**
-     * Last changed with version 7.4.0 (13688692) last checked with 14510518
+     * Last changed with version 7.6.0 (14592506) last checked with 14592506
      */
-    private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.w";
+    private static String v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.z";
 
     public static void initWithVersion(int versionCode) {
         // minSdk9 class names
@@ -79,7 +81,10 @@ public final class ClassNames {
         }
 
         // minSdk14 class names
-        if (versionCode >= V14_7_4_0) {
+        if (versionCode >= V14_7_6_0) {
+            v14DoubleTabListenerName = "com.instagram.android.feed.a.b.ax";
+            v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.z";
+        } else if (versionCode >= V14_7_4_0) {
             v14DoubleTabListenerName = "com.instagram.android.feed.a.b.au";
             v14HeartIconTapListenerName = "com.instagram.android.feed.a.b.w";
         } else if (versionCode >= V14_7_3_0) {
